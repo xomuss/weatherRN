@@ -7,12 +7,14 @@ function Weather() {
 
   return (
     <>
-      {weather !== 'undefined' && (
+      {typeof weather.main !== 'undefined' ? (
         <View style={styles.weatherBox}>
           <Text>{Math.round(weather.main.temp)} °C</Text>
           <Text>{weather.weather[0].main}</Text>
           <Text>{weather.weather[0].description}</Text>
         </View>
+      ) : (
+        <Text>NO</Text>
       )}
     </>
   );
@@ -20,7 +22,6 @@ function Weather() {
 
 const styles = StyleSheet.create({
   weatherBox: {
-    flex: 1,
     textAlign: 'center',
   },
 

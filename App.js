@@ -27,7 +27,7 @@ const App = () => {
       <SafeAreaView>
         <Form />
         <Location />
-        {/*<Weather />*/}
+        <Weather />
       </SafeAreaView>
     </Provider>
   );

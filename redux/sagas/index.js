@@ -1,5 +1,5 @@
 import {takeEvery, fork, call, put, select} from 'redux-saga/effects';
-import {selectSelf} from '../selectors';
+import {selectSelf, selectStore} from '../selectors';
 
 const api = {
   key: '96cf02d112b4fc5940b46111ac1a89e0',
@@ -16,10 +16,9 @@ async function fetchApi(pattern) {
 }
 
 export function* workerSaga() {
-  const city = yield select(selectSelf);
+  const city = yield select(selectStore);
   const weather = yield call(fetchApi, city);
   yield put({type: 'weather/requestSuccess', payload: weather});
-  console.log('sss', weather);
 }
 
 export function* watcherSaga() {

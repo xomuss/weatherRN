@@ -13,24 +13,21 @@ import {
 import Form from './components/Form';
 import {Provider, useSelector} from 'react-redux';
 import store from './redux/store';
-import Location from './components/Location';
+import {weather, selectSelf} from './redux/selectors';
+import {selectStore} from './redux/selectors';
 
-const App: () => Node = () => {
+import Location from './components/Location';
+import Weather from './components/Weather';
+console.log(selectStore);
+const App = () => {
   // const weather = useSelector(state => state.weather);
 
   return (
     <Provider store={store}>
       <SafeAreaView>
         <Form />
-
-        {/*{typeof weather.main != 'undefined' ? (*/}
-        {/*  <View>*/}
-        {/*    <Location />*/}
-        {/*    /!*<Weather />*!/*/}
-        {/*  </View>*/}
-        {/*) : (*/}
-        {/*  ''*/}
-        {/*)}*/}
+        <Location />
+        {/*<Weather />*/}
       </SafeAreaView>
     </Provider>
   );

@@ -12,7 +12,7 @@ export default function reducer(state = initialState, action) {
       };
 
     case 'queryParam':
-      return {...initialState, city: action.payload};
+      return {...state, city: action.payload};
 
     default:
       return state;

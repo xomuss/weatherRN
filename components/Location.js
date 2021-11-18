@@ -1,5 +1,7 @@
 import {useSelector} from 'react-redux';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
+// import {weather} from '../redux/selectors';
+import React from 'react';
 
 function Location() {
   const weather = useSelector(state => state.weather);
@@ -36,12 +38,18 @@ function Location() {
     return `${day} ${date} ${month} ${year}`;
   };
   return (
-    <View>
-      <View>
-        {weather.name}, {weather.sys.country}
-      </View>
-      <View>{dateBuilder(new Date())}</View>
-    </View>
+    <>
+      {typeof weather.main !== 'undefined' ? (
+        <View>
+          <Text>
+            {weather.name}, {weather.sys.country}
+          </Text>
+          <Text>{dateBuilder(new Date())}</Text>
+        </View>
+      ) : (
+        <Text>NO</Text>
+      )}
+    </>
   );
 }
 

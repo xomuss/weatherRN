@@ -17,7 +17,7 @@ const Form = () => {
   return (
     <View>
       <TextInput onChangeText={onInputChange} placeholder={'Search...'} />
-      <Button title="Get Weather" onPress={onButtonClick} />
+      <Button title="Get Weather" onPress={() => onButtonClick()} />
     </View>
   );
 };

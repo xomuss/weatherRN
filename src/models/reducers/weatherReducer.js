@@ -1,13 +1,13 @@
-export const initialState = {
+export const INITIAL_STATE = {
   weather: {},
   city: '',
 };
 
-export default function reducer(state = initialState, action) {
+const weatherReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'weather/requestSuccess':
       return {
-        ...initialState,
+        ...state,
         weather: action.payload,
       };
 
@@ -17,4 +17,6 @@ export default function reducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default weatherReducer;

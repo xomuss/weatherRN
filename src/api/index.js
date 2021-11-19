@@ -4,6 +4,7 @@ const api = {
 };
 
 export async function fetchApi(pattern) {
+  console.log('////', pattern);
   const request = await fetch(`${api.base}weather?q=${pattern}&units=metric&appid=${api.key}`);
 
   return await request.json();

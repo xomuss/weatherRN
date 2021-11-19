@@ -1,10 +1,11 @@
 import {useSelector} from 'react-redux';
 import {Text, View} from 'react-native';
-// import {weather} from '../redux/selectors';
 import React from 'react';
+import Selectors from 'src/models/selectors/index';
 
-function Location() {
-  const weather = useSelector(state => state.weather);
+const Location = () => {
+  // ----------- Selectors ---------- //
+  const weatherData = useSelector(Selectors.selectWeather);
 
   const dateBuilder = d => {
     let months = [
@@ -21,15 +22,8 @@ function Location() {
       'November',
       'December',
     ];
-    let days = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ];
+    let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
     let day = days[d.getDay()];
     let date = d.getDate();
     let month = months[d.getMonth()];
@@ -37,20 +31,24 @@ function Location() {
 
     return `${day} ${date} ${month} ${year}`;
   };
+
+  // -------- Render methods -------- //
+  const renderDateBuilder = () => <Text>{dateBuilder(new Date())}</Text>;
+
   return (
     <>
-      {typeof weather.main !== 'undefined' ? (
+      {weatherData ? (
         <View>
           <Text>
-            {weather.name}, {weather.sys.country}
+            {weatherData.name}, {weatherData.sys.country}
           </Text>
-          <Text>{dateBuilder(new Date())}</Text>
+          {renderDateBuilder()}
         </View>
       ) : (
         <Text>NO</Text>
       )}
     </>
   );
-}
+};
 
 export default Location;

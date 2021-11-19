@@ -2,28 +2,26 @@ import {createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import rootReducer from 'src/models/reducers';
-import sagas from 'src/models/sagas';
+import rootSaga from 'src/models/sagas/rootSaga';
 
+// --------------------- Create Middleware array storage --------------------------- //
 const middlewares = [];
 
-// ------ Add Flipper Redux debugger plugin middleware ------- //
+// ------ Add Flipper Redux debugger plugin middleware to middleware storage ------- //
 if (__DEV__) {
   const reduxDebugger = require('redux-middleware-flipper').default;
 
   middlewares.push(reduxDebugger({}));
 }
 
-// ------ Add Saga middleware ------- //
+// -------------------- Add Saga middleware to middleware storage ------------------- //
 const sagaMiddleware = createSagaMiddleware();
 middlewares.push(sagaMiddleware);
 
-// ------ Create store -------------- //
-const Store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(...middlewares)),
-);
+// ------ Create store with apply middlewares and dev tools extension --------------- //
+const Store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...middlewares)));
 
-// ----- Start saga middleware ------ //
-sagaMiddleware.run(sagas);
+// --------------- Start saga middleware and put into it the rootSaga --------------- //
+sagaMiddleware.run(rootSaga);
 
 export default Store;

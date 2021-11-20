@@ -1,5 +1,5 @@
 export const INITIAL_STATE = {
-  weather: {},
+  weather: null,
   city: '',
 };
 
@@ -11,7 +11,7 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
         weather: action.payload,
       };
 
-    case 'queryParam':
+    case 'weather/setCity':
       return {...state, city: action.payload};
 
     default:

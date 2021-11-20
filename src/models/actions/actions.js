@@ -7,7 +7,7 @@ export const getWeatherSuccessAction = weatherData => ({
   payload: weatherData,
 });
 
-export const postQueryParamAction = query => ({
-  type: 'queryParam',
-  payload: query,
+export const setCity = city => ({
+  type: 'weather/setCity',
+  payload: city,
 });

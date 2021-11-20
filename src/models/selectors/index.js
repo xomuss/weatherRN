@@ -1,10 +1,9 @@
 import {createSelector} from 'reselect';
 
-export const selectState = state => state;
+const State = state => state.weatherState;
 
-export const selectStateCity = state => state.city;
-export const selectCity = createSelector(selectStateCity, state => state.city);
-export const selectWeather = createSelector(selectState, state => state.weather);
+const selectCity = createSelector(State, state => state.city);
+const selectWeather = createSelector(State, state => state.weather);
 
 export default {
   selectCity,

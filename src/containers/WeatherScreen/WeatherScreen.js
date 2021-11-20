@@ -3,7 +3,6 @@ import {Button, Text, TextInput, View} from 'react-native';
 import {getWeatherAction, setCity} from '../../models/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import Selectors from '../../models/selectors';
-import {styles} from '../../shared/components/WeatherVidget/WeatherVidgetStyles';
 
 const WeatherScreen = () => {
   const dispatch = useDispatch();
@@ -59,7 +58,10 @@ const WeatherScreen = () => {
 
   const renderWeatherLocation = () => {
     return (
-      weatherData && (
+      weatherData &&
+      weatherData.name &&
+      weatherData.sys &&
+      weatherData.sys.country && (
         <View>
           <Text>
             {weatherData.name}, {weatherData.sys.country}
@@ -72,10 +74,13 @@ const WeatherScreen = () => {
 
   const renderWeatherWidget = () => {
     return (
-      weatherData && (
+      weatherData &&
+      weatherData.main &&
+      weatherData.main.temp &&
+      weatherData.weather &&
+      weatherData.weather[0].main && (
         <View>
           <Text>{Math.round(weatherData.main.temp)} °C</Text>
-          <Text>{weatherData.weather[0].main}</Text>
           <Text>{weatherData.weather[0].main}</Text>
         </View>
       )

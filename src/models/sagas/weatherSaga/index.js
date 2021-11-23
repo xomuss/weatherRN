@@ -6,11 +6,8 @@ import WeatherApi from '../../../api/WeatherApi/WeatherApi';
 export function* getWeatherSaga() {
   try {
     const city = yield select(Selectors.selectCity);
-    console.log('-------- before call');
     const weather = yield call(WeatherApi.getWeather, city);
-    console.log('-------- after call', weather);
-
-    yield put(getWeatherSuccessAction(weather));
+    yield put(getWeatherSuccessAction(weather.data));
   } catch (e) {
     yield put(getWeatherFailure(e.message));
   }

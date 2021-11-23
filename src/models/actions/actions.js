@@ -7,6 +7,11 @@ export const getWeatherSuccessAction = weatherData => ({
   payload: weatherData,
 });
 
+export const getWeatherFailure = error => ({
+  type: 'weather/requestFailure',
+  payload: error,
+});
+
 export const setCity = city => ({
   type: 'weather/setCity',
   payload: city,

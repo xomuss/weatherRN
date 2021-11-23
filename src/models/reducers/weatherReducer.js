@@ -1,6 +1,7 @@
 export const INITIAL_STATE = {
   weather: null,
   city: '',
+  error: null,
 };
 
 const weatherReducer = (state = INITIAL_STATE, action) => {
@@ -9,6 +10,11 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         weather: action.payload,
+      };
+    case 'weather/requestFailure':
+      return {
+        ...state,
+        error: action.payload,
       };
 
     case 'weather/setCity':

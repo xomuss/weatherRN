@@ -1,8 +1,9 @@
 import React from 'react';
-import {Button, Text, TextInput, View} from 'react-native';
+import {Button, ImageBackground, Text, TextInput, View} from 'react-native';
 import {getWeatherAction, setCity} from '../../models/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import Selectors from '../../models/selectors';
+import styles from './styles';
 
 const WeatherScreen = () => {
   const dispatch = useDispatch();
@@ -47,14 +48,23 @@ const WeatherScreen = () => {
   // ---------- Render methods ------- //
   const renderFormInputGetWeather = () => {
     return (
-      <>
-        <TextInput onChangeText={onInputChange} placeholder={'Search...'} />
-        <Button title="Get Weather" onPress={onPressGetWeather} />
-      </>
+      <View style={styles.searchBox}>
+        <TextInput style={styles.searchBar} onChangeText={onInputChange} placeholder={'Search...'} />
+        <Button style={styles.searchBtn} title="Get Weather" onPress={onPressGetWeather} />
+      </View>
     );
   };
 
-  const renderDateBuilder = () => <Text>{dateBuilder(new Date())}</Text>;
+  const renderDateBuilder = () => (
+    <Text
+      textShadowRadius={5}
+      textShadowOffset={{width: 2, height: 2}}
+      textShadowColor={'rgba(50, 50, 70, 0.5)'}
+      style={styles.locationBoxDate}
+    >
+      {dateBuilder(new Date())}
+    </Text>
+  );
 
   const renderWeatherLocation = () => {
     return (
@@ -63,7 +73,7 @@ const WeatherScreen = () => {
       weatherData.sys &&
       weatherData.sys.country && (
         <View>
-          <Text>
+          <Text style={styles.locationBoxText}>
             {weatherData.name}, {weatherData.sys.country}
           </Text>
           {renderDateBuilder()}
@@ -78,21 +88,30 @@ const WeatherScreen = () => {
       weatherData.main &&
       weatherData.main.temp &&
       weatherData.weather &&
-      weatherData.weather[0].main && (
+      weatherData.weather[0].main &&
+      weatherData.weather[0].description && (
         <View>
-          <Text>{Math.round(weatherData.main.temp)} °C</Text>
-          <Text>{weatherData.weather[0].main}</Text>
+          <Text style={styles.weatherBoxTemp}>{Math.round(weatherData.main.temp)} °C</Text>
+          <Text style={styles.weatherBoxMain}>{weatherData.weather[0].main}</Text>
+          <Text style={styles.weatherBoxDesc}>{weatherData.weather[0].description}</Text>
         </View>
       )
     );
   };
 
   return (
-    <>
-      {renderFormInputGetWeather()}
-      {renderWeatherLocation()}
-      {renderWeatherWidget()}
-    </>
+    <View>
+      <ImageBackground
+        source={require('../../essets/background-abstract-gradient-blue-cold-vector-7888335.jpeg')}
+        style={{width: '100%', height: '100%'}}
+      >
+        <View style={{paddingHorizontal: 20}}>
+          {renderFormInputGetWeather()}
+          {renderWeatherLocation()}
+          {renderWeatherWidget()}
+        </View>
+      </ImageBackground>
+    </View>
   );
 };
 

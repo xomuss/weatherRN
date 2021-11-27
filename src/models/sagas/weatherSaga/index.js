@@ -1,16 +1,14 @@
 import {call, put, select} from 'redux-saga/effects';
-import {getWeatherSuccessAction} from 'src/models/actions/actions';
+import {getWeatherSuccessAction, getWeatherFailure} from 'src/models/actions/actions';
 import Selectors from '../../selectors';
-import {fetchApi} from 'src/api';
+import WeatherApi from '../../../api/WeatherApi/WeatherApi';
 
 export function* getWeatherSaga() {
   try {
     const city = yield select(Selectors.selectCity);
-
-    const weather = yield call(fetchApi, city);
-
-    yield put(getWeatherSuccessAction(weather));
+    const weather = yield call(WeatherApi.getWeather, city);
+    yield put(getWeatherSuccessAction(weather.data));
   } catch (e) {
-    console.info('getWeatherSaga error - ', e);
+    yield put(getWeatherFailure(e.message));
   }
 }

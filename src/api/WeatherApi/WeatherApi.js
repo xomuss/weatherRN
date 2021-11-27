@@ -5,11 +5,9 @@ class WeatherApi extends BaseApi {
     super();
   }
 
-  getWeather(pattern) {
-    const response = this.api.get(`weather?q=${pattern}&units=metric&appid=${this.apiKey}`);
-    console.log('------getWeather', response);
-    return response;
-  }
+  getWeather = city => {
+    return this.api.get(`weather?q=${city}&units=metric&appid=${this.apiKey}`);
+  };
 }
 
 export default new WeatherApi();

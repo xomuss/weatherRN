@@ -3,9 +3,17 @@ import {getWeatherSuccessAction, getWeatherFailure} from 'src/models/actions/act
 import Selectors from '../../selectors';
 import WeatherApi from '../../../api/WeatherApi/WeatherApi';
 
-export function* getWeatherSaga() {
+export function* getWeatherSaga(action) {
   try {
-    const city = yield select(Selectors.selectCity);
+    const cityFromSelector = yield select(Selectors.selectCity);
+    let city;
+
+    if (action.payload) {
+      city = action.payload;
+    } else {
+      city = cityFromSelector;
+    }
+
     const weather = yield call(WeatherApi.getWeather, city);
     yield put(getWeatherSuccessAction(weather.data));
   } catch (e) {

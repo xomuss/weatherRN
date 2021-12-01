@@ -1,5 +1,4 @@
 import {createSelector} from 'reselect';
-import {stat} from '@babel/core/lib/gensync-utils/fs';
 
 const State = state => state.weatherState;
 

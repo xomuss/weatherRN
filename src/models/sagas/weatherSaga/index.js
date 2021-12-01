@@ -15,7 +15,10 @@ export function* getWeatherSaga(action) {
     }
 
     const weather = yield call(WeatherApi.getWeather, city);
-    yield put(getWeatherSuccessAction(weather.data));
+
+    if (weather.data) {
+      yield put(getWeatherSuccessAction(weather.data));
+    }
   } catch (e) {
     yield put(getWeatherFailure(e.message));
   }

@@ -19,5 +19,5 @@ export const setCity = city => ({
 
 export const getWeatherByTimerAction = city => ({
   type: 'timer/request',
-  payload: city,
+  payload: 'London',
 });

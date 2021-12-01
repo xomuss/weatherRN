@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 import BackgroundTimer from 'react-native-background-timer';
 import {useDispatch} from 'react-redux';
-import {getWeatherByTimerAction} from '../../models/actions/actions';
+import {getWeatherAction, getWeatherByTimerAction} from '../../models/actions/actions';
 
 const hour = 3601;
 
@@ -12,15 +12,15 @@ const TimerScreen = () => {
   const dispatch = useDispatch();
   //создать таймер на 1 час для обновления погоды
 
-  useEffect(() => {
-    let timerId = setInterval(() => {
-      dispatch(getWeatherByTimerAction);
-    }, 1000);
-
-    return () => {
-      clearInterval(timerId);
-    };
-  });
+  // useEffect(() => {
+  //   let timerId = setInterval(() => {
+  //     dispatch(getWeatherByTimerAction);
+  //   }, 2000);
+  //
+  //   return () => {
+  //     clearInterval(timerId);
+  //   };
+  // });
 
   useEffect(() => {
     if (timerOn) {

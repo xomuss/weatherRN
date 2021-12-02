@@ -9,8 +9,19 @@ const seconds = 900;
 const TimerScreen = () => {
   const [secondsLeft, setSecondsLeft] = useState(seconds);
   const [timerOn, setTimerOn] = useState(false);
+  const [secondsToUpdate, setSecondsToUpdate] = useState(15);
   const dispatch = useDispatch();
   //создать таймер на 1 час для обновления погоды
+
+  useEffect(() => {
+    if (secondsToUpdate > 0) {
+      setTimeout(() => setSecondsToUpdate(secondsToUpdate - 1), 1000);
+      console.log(secondsToUpdate);
+    } else {
+      console.log('dispatch action');
+      setSecondsToUpdate(15);
+    }
+  }, [secondsToUpdate]);
 
   useEffect(() => {
     if (timerOn) {
@@ -52,13 +63,14 @@ const TimerScreen = () => {
     BackgroundTimer.stopBackgroundTimer();
   };
 
+  let sec = Math.floor(secondsLeft % 60);
   let minutes = Math.floor(secondsLeft / 60);
   let hour = Math.floor(minutes / 60);
 
   return (
     <View style={styles.container}>
       <Text style={styles.time}>
-        {hour} : {minutes}
+        {hour} : {minutes} : {sec}
       </Text>
       <Button title="Start/Stop" onPress={toggleTimer} />
     </View>
